@@ -32,10 +32,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("MECL ChatBox"),
+        title: const Text("MECL ChatBox"),
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.black, Colors.blue],
             begin: Alignment.topLeft,
@@ -45,19 +45,20 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             if (_showDefaultMessage)
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                   height: 155,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 130, 128, 228).withOpacity(0.2),
+                    color: const Color.fromARGB(255, 130, 128, 228)
+                        .withOpacity(0.2),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   padding: const EdgeInsets.all(20),
                   alignment: Alignment.center,
-                  child: Text(
+                  child: const Text(
                     'Try saying "When was MECL Formed?"',
                     style: TextStyle(
                       color: Colors.white,
@@ -97,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                               _showDefaultMessage = false;
                             });
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: 'Type your message...',
                             border: InputBorder.none,
                           ),
@@ -107,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   IconButton(
                     onPressed: () => _sendMessage(_textEditingController.text),
-                    icon: Icon(Icons.send),
+                    icon: const Icon(Icons.send),
                     color: Colors.white,
                   ),
                 ],
@@ -138,7 +139,7 @@ class MessageBubble extends StatelessWidget {
       ),
       child: Text(
         message,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
         ),
       ),
