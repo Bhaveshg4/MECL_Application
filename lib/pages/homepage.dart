@@ -1,22 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Simple Chat App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: HomePage(),
-    );
-  }
-}
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -49,7 +32,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Simple Chat"),
+        title: Text("MECL ChatBox"),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -75,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.all(20),
                   alignment: Alignment.center,
                   child: Text(
-                    'Try saying "Tell me about something"',
+                    'Try saying "When was MECL Formed?"',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 28,
