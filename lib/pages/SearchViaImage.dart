@@ -5,14 +5,6 @@ class SearchViaImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "MECL ChatBot (Search Via Image)",
-        ),
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.black,
-      ),
-    );
+    return const Placeholder();
   }
 }
