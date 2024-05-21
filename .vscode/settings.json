@@ -1,4 +1,5 @@
 {
     "cmake.sourceDirectory": "/home/anish/Desktop/MECL APP/mecl_application_1/linux",
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.compile.nullAnalysis.mode": "disabled"
 }

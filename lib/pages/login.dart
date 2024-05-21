@@ -1,9 +1,10 @@
-// ignore_for_file: library_private_types_in_public_api
+// login.dart
 
 import 'package:flutter/material.dart';
 import 'package:mecl_application_1/pages/forgotpassword.dart';
 import 'package:mecl_application_1/pages/homepage.dart';
 import 'package:mecl_application_1/pages/signUp.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -16,6 +17,41 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
+
+  GoogleSignInAccount? _currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
+      setState(() {
+        _currentUser = account;
+      });
+      if (account != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()),
+        );
+      }
+    });
+  }
+
+  Future<void> _handleSignIn() async {
+    try {
+      await _googleSignIn.signIn();
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  Future<void> _handleSignOut() => _googleSignIn.disconnect();
 
   @override
   Widget build(BuildContext context) {
@@ -136,17 +172,16 @@ class _LoginState extends State<Login> {
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const HomePage()));
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const HomePage()),
+                                    );
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(
-                                    horizontal: 100,
-                                    vertical: 20,
-                                  ),
+                                      horizontal: 100, vertical: 20),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -162,10 +197,11 @@ class _LoginState extends State<Login> {
                               TextButton(
                                 onPressed: () {
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const ForgotPassword()));
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ForgotPassword()),
+                                  );
                                 },
                                 child: const Text(
                                   'Forgot Password?',
@@ -174,12 +210,10 @@ class _LoginState extends State<Login> {
                               ),
                               const SizedBox(height: 20),
                               ElevatedButton.icon(
-                                onPressed: () {},
+                                onPressed: _handleSignIn,
                                 style: ElevatedButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(
-                                    horizontal: 30,
-                                    vertical: 15,
-                                  ),
+                                      horizontal: 30, vertical: 15),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -192,9 +226,7 @@ class _LoginState extends State<Login> {
                                 label: const Text(
                                   'Sign in with Google',
                                   style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                  ),
+                                      fontSize: 18, color: Colors.black),
                                 ),
                               ),
                               const SizedBox(height: 20),
