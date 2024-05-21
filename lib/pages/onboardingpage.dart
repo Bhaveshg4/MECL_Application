@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:mecl_application_1/pages/login.dart';
 
@@ -31,15 +33,19 @@ class OnBoarding extends StatelessWidget {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Login()),
+                            MaterialPageRoute(
+                                builder: (context) => const Login()),
                           );
                         },
-                        child: Icon(Icons.home, color: Colors.white),
+                        child: const Padding(
+                          padding: EdgeInsets.only(left: 10.0),
+                          child: Icon(Icons.login, color: Colors.white),
+                        ),
                       ),
                       Container(
                         alignment: Alignment.center,
-                        height: 30,
-                        width: 210,
+                        height: 28,
+                        width: 200,
                         decoration: BoxDecoration(
                             color: Colors.amber,
                             borderRadius: BorderRadius.circular(10)),
@@ -53,22 +59,26 @@ class OnBoarding extends StatelessWidget {
                     ],
                   ),
                 ),
-                Image.asset("assets/message.png"),
+                Image.asset(
+                  "assets/message.png",
+                  height: 350,
+                ),
                 const SizedBox(height: 20),
                 const Text(
                   "Your Intelligent\nCompanion",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Color.fromARGB(255, 255, 255, 255),
-                    fontSize: 25,
+                    fontSize: 26,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 20),
                 const Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
                   child: Text(
-                    "Your Personal Chatbot: Ready to Assist, Day or Night.\nBringing You Quick Answers and Friendly Conversations.",
+                    "Your Personal Chatbot: Ready to Assist, Day or Night. Bringing You Quick Answers and Friendly Conversations.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color.fromARGB(255, 255, 255, 255),
@@ -86,13 +96,14 @@ class OnBoarding extends StatelessWidget {
                   child: Container(
                     alignment: Alignment.center,
                     height: 50,
-                    width: 120,
+                    width: 150,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: const Color.fromARGB(255, 8, 56, 78)),
                     child: const Text(
                       "Get Started",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   ),
                 )),

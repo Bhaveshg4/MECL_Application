@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ForgotPassword extends StatelessWidget {
-  const ForgotPassword({Key? key}) : super(key: key);
+  const ForgotPassword({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
     return Scaffold(
       body: Stack(
@@ -62,7 +62,7 @@ class ForgotPassword extends StatelessWidget {
                           ),
                         ),
                         child: Form(
-                          key: _formKey,
+                          key: formKey,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -100,7 +100,7 @@ class ForgotPassword extends StatelessWidget {
                                 onPressed: () {
                                   // Implement reset password functionality
                                   // Add logic to check validation before reset
-                                  if (_formKey.currentState!.validate()) {
+                                  if (formKey.currentState!.validate()) {
                                     _showResetConfirmationDialog(context);
                                   }
                                 },
