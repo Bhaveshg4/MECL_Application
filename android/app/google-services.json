@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "714976219659",
+    "project_id": "mecl-chatbot",
+    "storage_bucket": "mecl-chatbot.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714976219659:android:cc4623936070212e022d0e",
+        "android_client_info": {
+          "package_name": "com.example.mecl_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_aykWLmTpc1fx6c3f6bZfb7KjH7sY8HE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

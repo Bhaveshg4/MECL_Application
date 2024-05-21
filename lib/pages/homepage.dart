@@ -32,14 +32,14 @@ class _HomePageState extends State<HomePage> {
         _showDefaultMessage = false;
       });
 
-      final response1 =
+      final response =
           await http.get(Uri.parse('http://192.168.1.6:5000/ask?q=$message'));
 
-      String context =
-          "The Ministry of Mines, New Delhi, on the 17th of August, 2023, issued Notification S.0. 3684(E) in\naccordance with the powers vested by sub-section (2) of section 1 of the Mines and Minerals\n(Development and Regulation) Amendment Act, 2023 (16 of 2023). Through this notification, the\nCentral Government formally appoints the 17th day of August, 2023 as the effective date for the\nimplementation of the said Act. This decision is made with the authority granted to the Central\nGovernment in matters concerning the regulation and development of mines and minerals. The\nnotification is signed by Dr. Veena Kumari Dermal, Joint Secretary, Ministry of Mines, under the\nreference number F. No. M.VI-1/3/2022-MVI.";
+      // String context =
+      //     "The Ministry of Mines, New Delhi, on the 17th of August, 2023, issued Notification S.0. 3684(E) in\naccordance with the powers vested by sub-section (2) of section 1 of the Mines and Minerals\n(Development and Regulation) Amendment Act, 2023 (16 of 2023). Through this notification, the\nCentral Government formally appoints the 17th day of August, 2023 as the effective date for the\nimplementation of the said Act. This decision is made with the authority granted to the Central\nGovernment in matters concerning the regulation and development of mines and minerals. The\nnotification is signed by Dr. Veena Kumari Dermal, Joint Secretary, Ministry of Mines, under the\nreference number F. No. M.VI-1/3/2022-MVI.";
 
-      final response = await http.get(Uri.parse(
-          "http://192.168.1.6:5000/question_image?q=$message&context=$context"));
+      // final response = await http.get(Uri.parse(
+      //     "http://192.168.1.6:5000/question_image?q=$message&context=$context"));
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -62,31 +62,34 @@ class _HomePageState extends State<HomePage> {
         actions: [
           InkWell(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SearchViaImage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SearchViaImage()));
             },
-            child: Container(
-              decoration: BoxDecoration(
-                  gradient: const LinearGradient(colors: [
-                    Color.fromARGB(255, 36, 142, 230),
-                    Color.fromARGB(255, 179, 96, 228)
-                  ]),
-                  border: Border.all(color: Colors.amber),
-                  borderRadius: BorderRadius.circular(20)),
-              height: 45,
-              width: 180,
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Search via Image"),
-                  SizedBox(
-                    width: 3,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    gradient: const LinearGradient(colors: [
+                      Color.fromARGB(255, 36, 142, 230),
+                      Color.fromARGB(255, 179, 96, 228)
+                    ]),
+                    border: Border.all(color: Colors.amber),
+                    borderRadius: BorderRadius.circular(20)),
+                height: 45,
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Search via Image"),
+                      SizedBox(
+                        width: 3,
+                      ),
+                    ],
                   ),
-                  Icon(
-                    Icons.image_outlined,
-                    size: 25,
-                  )
-                ],
+                ),
               ),
             ),
           ),
