@@ -153,7 +153,7 @@ packages:
     source: hosted
     version: "0.12.4"
   http:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: http
       sha256: "761a297c042deedc1ffbb156d6e2af13886bb305c2a343a4d972504cd67dd938"
@@ -377,10 +377,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: e7d5ecd604e499358c5fe35ee828c0298a320d54455e791e9dcf73486bc8d9f0
+      sha256: "3923c89304b715fb1eb6423f017651664a03bf5f4b29983627c4da791f74a4ec"
       url: "https://pub.dev"
     source: hosted
-    version: "14.1.0"
+    version: "14.2.1"
   web:
     dependency: transitive
     description:

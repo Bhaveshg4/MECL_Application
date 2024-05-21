@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:mecl_application_1/pages/forgotpassword.dart';
 import 'package:mecl_application_1/pages/homepage.dart';
@@ -136,7 +138,8 @@ class _LoginState extends State<Login> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => HomePage()));
+                                            builder: (context) =>
+                                                const HomePage()));
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
@@ -162,7 +165,7 @@ class _LoginState extends State<Login> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              ForgotPassword()));
+                                              const ForgotPassword()));
                                 },
                                 child: const Text(
                                   'Forgot Password?',
