@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -15,6 +16,7 @@ class _RegisterState extends State<Register> {
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -192,9 +194,56 @@ class _RegisterState extends State<Register> {
                               const SizedBox(height: 30),
                               // Register button
                               ElevatedButton(
-                                onPressed: () {
+                                onPressed: () async {
                                   if (_formKey.currentState!.validate()) {
-                                    // Process data
+                                    try {
+                                      UserCredential userCredential =
+                                          await _auth
+                                              .createUserWithEmailAndPassword(
+                                        email: _emailController.text,
+                                        password: _passwordController.text,
+                                      );
+                                      // User successfully registered
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content:
+                                              Text('Registration Successful!'),
+                                        ),
+                                      );
+                                      // Clear the text fields
+                                      _usernameController.clear();
+                                      _emailController.clear();
+                                      _phoneController.clear();
+                                      _passwordController.clear();
+                                    } on FirebaseAuthException catch (e) {
+                                      String message;
+                                      if (e.code == 'weak-password') {
+                                        message =
+                                            'The password provided is too weak.';
+                                      } else if (e.code ==
+                                          'email-already-in-use') {
+                                        message =
+                                            'The account already exists for that email.';
+                                      } else {
+                                        message =
+                                            'An error occurred. Please try again.';
+                                      }
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(message),
+                                        ),
+                                      );
+                                    } catch (e) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                              'An error occurred. Please try again.'),
+                                        ),
+                                      );
+                                    }
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
