@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:mecl_application_1/pages/SearchViaImage.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -57,6 +59,38 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          InkWell(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SearchViaImage()));
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                  gradient: const LinearGradient(colors: [
+                    Color.fromARGB(255, 36, 142, 230),
+                    Color.fromARGB(255, 179, 96, 228)
+                  ]),
+                  border: Border.all(color: Colors.amber),
+                  borderRadius: BorderRadius.circular(20)),
+              height: 45,
+              width: 180,
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Search via Image"),
+                  SizedBox(
+                    width: 3,
+                  ),
+                  Icon(
+                    Icons.image_outlined,
+                    size: 25,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
         title: const Text(
           "MECL ChatBot",
         ),
