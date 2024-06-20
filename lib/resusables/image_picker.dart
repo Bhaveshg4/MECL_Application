@@ -7,6 +7,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:file_picker/file_picker.dart';
 
 class ImagePickerUploader extends StatefulWidget {
   final Function(String) onExtractedText;
@@ -23,18 +25,33 @@ class _ImagePickerUploaderState extends State<ImagePickerUploader> {
   String? _extractedText;
 
   Future<void> _pickImage() async {
-    if (await Permission.photos.request().isGranted ||
-        await Permission.storage.request().isGranted) {
-      final pickedFile =
-          await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (pickedFile != null) {
-        setState(() {
-          _image = File(pickedFile.path);
-        });
-        _uploadImage();
+    if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+      if (await Permission.photos.request().isGranted ||
+          await Permission.storage.request().isGranted) {
+        final pickedFile =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
+        if (pickedFile != null) {
+          setState(() {
+            _image = File(pickedFile.path);
+          });
+          _uploadImage();
+        }
+      } else {
+        print("Storage permission denied");
       }
     } else {
-      print("Storage permission denied");
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.image,
+      );
+
+      if (result != null) {
+        setState(() {
+          _image = File(result.files.single.path!);
+        });
+        _uploadImage();
+      } else {
+        print("File picking cancelled");
+      }
     }
   }
 
@@ -61,11 +78,14 @@ class _ImagePickerUploaderState extends State<ImagePickerUploader> {
   }
 
   Future<void> _extractText(String? downloadUrl) async {
-    if (downloadUrl == null) return;
+    if (downloadUrl == null) {
+      print("Error Here");
+      return;
+    }
 
     try {
       final Uri encodedUrl = Uri.parse(
-          'http://192.168.1.6:5000/extract_text?q=${Uri.encodeComponent(downloadUrl)}');
+          'http://192.168.1.38:5000/extract_text?q=${Uri.encodeComponent(downloadUrl)}');
       final response = await http.get(encodedUrl);
 
       if (response.statusCode == 200) {
@@ -128,7 +148,10 @@ class _ImagePickerUploaderState extends State<ImagePickerUploader> {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15.0),
-              child: Image.network(_downloadUrl!),
+              child: Image.network(
+                _downloadUrl!,
+                height: 200.0,
+              ),
             ),
           )
       ],

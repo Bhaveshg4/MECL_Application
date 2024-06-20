@@ -4,23 +4,10 @@ import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
-/// Default [FirebaseOptions] for use with your Firebase apps.
-///
-/// Example:
-/// ```dart
-/// import 'firebase_options.dart';
-/// // ...
-/// await Firebase.initializeApp(
-///   options: DefaultFirebaseOptions.currentPlatform,
-/// );
-/// ```
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -36,10 +23,7 @@ class DefaultFirebaseOptions {
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -59,4 +43,25 @@ class DefaultFirebaseOptions {
     projectId: 'mecl-chatbot',
     storageBucket: 'mecl-chatbot.appspot.com',
   );
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyCU011zFGNbIRRZhGheRIepyn6OvSMjZBo',
+    appId: '1:714976219659:web:26088d88a7f60a8c022d0e',
+    messagingSenderId: '714976219659',
+    projectId: 'mecl-chatbot',
+    authDomain: 'mecl-chatbot.firebaseapp.com',
+    storageBucket: 'mecl-chatbot.appspot.com',
+    measurementId: 'G-3DGDCNZ7FB',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyCU011zFGNbIRRZhGheRIepyn6OvSMjZBo',
+    appId: '1:714976219659:web:a007e5d351210d14022d0e',
+    messagingSenderId: '714976219659',
+    projectId: 'mecl-chatbot',
+    authDomain: 'mecl-chatbot.firebaseapp.com',
+    storageBucket: 'mecl-chatbot.appspot.com',
+    measurementId: 'G-3X68V9DHQ5',
+  );
+
 }

@@ -1,9 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:mecl_application_1/pages/forgotpassword.dart';
 import 'package:mecl_application_1/pages/homepage.dart';
-import 'package:mecl_application_1/pages/signUp.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -24,25 +22,22 @@ class _LoginState extends State<Login> {
         children: [
           Container(
             decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.black, Colors.blue],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
+              color: Colors.black,
             ),
           ),
           Container(
-            color: Colors.black.withOpacity(0.5),
+            color: Colors.black.withOpacity(0.9),
           ),
           SingleChildScrollView(
             child: SafeArea(
               child: Center(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(height: 80),
                     const Text(
-                      "L O G I N",
+                      "LOGIN",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 32,
@@ -132,98 +127,104 @@ class _LoginState extends State<Login> {
                                 },
                               ),
                               const SizedBox(height: 30),
-                              ElevatedButton(
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const HomePage()));
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 100,
-                                    vertical: 20,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  backgroundColor: Colors.blueAccent,
-                                ),
-                                child: const Text(
-                                  'Login',
-                                  style: TextStyle(
-                                      fontSize: 18, color: Colors.white),
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const ForgotPassword()));
-                                },
-                                child: const Text(
-                                  'Forgot Password?',
-                                  style: TextStyle(color: Colors.white70),
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              ElevatedButton.icon(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 30,
-                                    vertical: 15,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  backgroundColor: Colors.white,
-                                ),
-                                icon: Image.asset(
-                                  'assets/images.png',
-                                  height: 24,
-                                ),
-                                label: const Text(
-                                  'Sign in with Google',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    "New User? ",
-                                    style: TextStyle(color: Colors.white70),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.8,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
                                       Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const Register()),
-                                      );
-                                    },
-                                    child: const Text(
-                                      "Sign Up now",
-                                      style: TextStyle(
-                                        color: Colors.blueAccent,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const HomePage()));
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 100,
+                                      vertical: 15,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    backgroundColor: Colors.blueAccent,
+                                  ),
+                                  child: const Text(
+                                    'Login',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
+                              const SizedBox(height: 20),
+                              // TextButton(
+                              //   onPressed: () {
+                              //     Navigator.push(
+                              //         context,
+                              //         MaterialPageRoute(
+                              //             builder: (context) =>
+                              //                 const ForgotPassword()));
+                              //   },
+                              //   child: const Text(
+                              //     'Forgot Password?',
+                              //     style: TextStyle(color: Colors.white70),
+                              //   ),
+                              // ),
+                              // const SizedBox(height: 20),
+                              // ElevatedButton.icon(
+                              //   onPressed: () {},
+                              //   style: ElevatedButton.styleFrom(
+                              //     padding: const EdgeInsets.symmetric(
+                              //       horizontal: 30,
+                              //       vertical: 15,
+                              //     ),
+                              //     shape: RoundedRectangleBorder(
+                              //       borderRadius: BorderRadius.circular(10),
+                              //     ),
+                              //     backgroundColor: Colors.white,
+                              //   ),
+                              //   icon: Image.asset(
+                              //     'assets/images.png',
+                              //     height: 24,
+                              //   ),
+                              //   label: const Text(
+                              //     'Sign in with Google',
+                              //     style: TextStyle(
+                              //       fontSize: 18,
+                              //       color: Colors.black,
+                              //     ),
+                              //   ),
+                              // ),
+                              // const SizedBox(height: 20),
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.center,
+                              //   children: [
+                              //     const Text(
+                              //       "New User? ",
+                              //       style: TextStyle(color: Colors.white70),
+                              //     ),
+                              //     GestureDetector(
+                              //       onTap: () {
+                              //         Navigator.push(
+                              //           context,
+                              //           MaterialPageRoute(
+                              //               builder: (context) =>
+                              //                   const Register()),
+                              //         );
+                              //       },
+                              //       child: const Text(
+                              //         "Sign Up now",
+                              //         style: TextStyle(
+                              //           color: Colors.blueAccent,
+                              //           fontWeight: FontWeight.bold,
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
                             ],
                           ),
                         ),

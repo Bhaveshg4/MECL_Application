@@ -33,7 +33,7 @@ class _SearchViaImageState extends State<SearchViaImage> {
       });
 
       final response = await http.get(Uri.parse(
-          "http://192.168.1.6:5000/question_image?q=$message&context=$contextString"));
+          "http://192.168.1.38:5000/question_image?q=$message&context=$contextString"));
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -93,7 +93,7 @@ class _SearchViaImageState extends State<SearchViaImage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "MECL ChatBot: Image Search",
+          "Image ChatBot",
         ),
         foregroundColor: Colors.white,
         backgroundColor: Colors.black,
@@ -115,6 +115,7 @@ class _SearchViaImageState extends State<SearchViaImage> {
             ImagePickerUploader(
               onExtractedText: handleExtractedText,
             ),
+            const SizedBox(height: 8),
             const Divider(
               indent: 8.0,
               endIndent: 8.0,
