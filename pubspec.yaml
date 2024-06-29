@@ -39,7 +39,11 @@ dependencies:
   image_picker:
   permission_handler:
   firebase_core:
+  webview_flutter:
   file_picker:
+  csv:
+  shared_preferences:
+  # flutter_tts: ^3.8.2
 
 dev_dependencies:
   flutter_test:

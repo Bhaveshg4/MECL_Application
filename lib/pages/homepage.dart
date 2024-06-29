@@ -1,9 +1,13 @@
 // ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+// import 'package:flutter_tts/flutter_tts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,6 +20,22 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _textEditingController = TextEditingController();
   final List<Message> _messages = [];
   bool _showDefaultMessage = true;
+
+  String? ipAddress;
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentIP();
+  }
+
+  Future<String> getCurrentIP({String defaultIP = '192.168.1.1'}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      ipAddress = prefs.getString("currentIP");
+    });
+    return prefs.getString('currentIP') ?? defaultIP;
+  }
 
   @override
   void dispose() {
@@ -33,9 +53,9 @@ class _HomePageState extends State<HomePage> {
 
       String url;
       if (kIsWeb) {
-        url = "http://192.168.1.38:5000";
+        url = "http://$ipAddress:5000";
       } else {
-        url = "192.168.1.38:5000";
+        url = "$ipAddress:5000";
       }
 
       final uri = Uri.http(url, '/ask', {'q': message});
@@ -173,6 +193,7 @@ class Message {
 
 class MessageBubble extends StatelessWidget {
   final Message message;
+  // final FlutterTts flutterTts = FlutterTts();
 
   const MessageBubble({
     super.key,
@@ -184,25 +205,63 @@ class MessageBubble extends StatelessWidget {
     return Align(
       alignment: message.isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: ConstrainedBox(
-        constraints: const BoxConstraints(
-          maxWidth: 280.0,
-        ),
-        child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 5),
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: message.isUser ? Colors.grey.shade700 : Colors.blue.shade400,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Text(
-            message.content.trim(),
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
-            ),
+        constraints: Platform.isWindows
+            ? BoxConstraints(
+                maxWidth: MediaQuery.of(context).size.width * 0.7,
+                minWidth: MediaQuery.of(context).size.width * 0.1,
+              )
+            : const BoxConstraints(
+                maxWidth: 280.0,
+              ),
+        child: GestureDetector(
+          onTap: () {
+            if (!message.isUser) {
+              _speakMessage(message.content);
+            }
+          },
+          child: Stack(
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: message.isUser
+                      ? Colors.grey.shade700
+                      : Colors.blue.shade400,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      message.content.trim(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    if (!message.isUser)
+                      const Padding(
+                        padding: EdgeInsets.only(top: 8.0),
+                        child: Icon(
+                          Icons.volume_up,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
     );
+  }
+
+  Future<void> _speakMessage(String message) async {
+    // await flutterTts.setLanguage("en-US");
+    // await flutterTts.setPitch(1.0);
+    // await flutterTts.speak(message);
   }
 }

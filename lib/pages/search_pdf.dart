@@ -4,17 +4,17 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
-import 'package:mecl_application_1/resusables/image_picker.dart';
+import 'package:mecl_application_1/resusables/pdf_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SearchViaImage extends StatefulWidget {
-  const SearchViaImage({super.key});
+class SearchViaPDF extends StatefulWidget {
+  const SearchViaPDF({super.key});
 
   @override
-  State<SearchViaImage> createState() => _SearchViaImageState();
+  State<SearchViaPDF> createState() => _SearchViaPDFState();
 }
 
-class _SearchViaImageState extends State<SearchViaImage> {
+class _SearchViaPDFState extends State<SearchViaPDF> {
   final TextEditingController _textEditingController = TextEditingController();
   final List<Message> _messages = [];
 
@@ -109,7 +109,7 @@ class _SearchViaImageState extends State<SearchViaImage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Image ChatBot",
+          "PDF ChatBot",
         ),
         foregroundColor: Colors.white,
         backgroundColor: Colors.black,
@@ -128,7 +128,7 @@ class _SearchViaImageState extends State<SearchViaImage> {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            ImagePickerUploader(
+            PdfPickerUploader(
               onExtractedText: handleExtractedText,
             ),
             const SizedBox(height: 20),

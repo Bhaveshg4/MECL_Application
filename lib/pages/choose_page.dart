@@ -1,8 +1,12 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:mecl_application_1/pages/SearchViaImage.dart';
 import 'package:mecl_application_1/pages/homepage.dart';
+import 'package:mecl_application_1/pages/map_ques.dart';
+import 'package:mecl_application_1/pages/open_map.dart';
+import 'package:mecl_application_1/pages/search_pdf.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChoosePage extends StatefulWidget {
   const ChoosePage({super.key});
@@ -135,27 +139,132 @@ class _ChoosePageState extends State<ChoosePage> {
                                   ),
                                 ),
                                 const SizedBox(height: 20),
-                                TextFormField(
-                                  obscureText: true,
-                                  enabled: false,
-                                  decoration: InputDecoration(
-                                    hintText: "PDF Chatbot",
-                                    hintStyle:
-                                        const TextStyle(color: Colors.white70),
-                                    prefixIcon: const Icon(
-                                        Icons.picture_as_pdf_rounded,
-                                        color: Colors.white),
-                                    suffixIcon: const Icon(
-                                        Icons.arrow_forward_ios_rounded,
-                                        color: Colors.white),
-                                    filled: true,
-                                    fillColor: Colors.white.withOpacity(0.3),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide.none,
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SampleMapPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: TextFormField(
+                                    obscureText: true,
+                                    enabled: false,
+                                    decoration: InputDecoration(
+                                      hintText: "NGDR Maps",
+                                      hintStyle: const TextStyle(
+                                          color: Colors.white70),
+                                      prefixIcon: const Icon(Icons.map_rounded,
+                                          color: Colors.white),
+                                      suffixIcon: const Icon(
+                                          Icons.arrow_forward_ios_rounded,
+                                          color: Colors.white),
+                                      filled: true,
+                                      fillColor: Colors.white.withOpacity(0.3),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide.none,
+                                      ),
                                     ),
+                                    style: const TextStyle(color: Colors.white),
                                   ),
-                                  style: const TextStyle(color: Colors.white),
+                                ),
+                                const SizedBox(height: 20),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SearchViaPDF(),
+                                      ),
+                                    );
+                                  },
+                                  child: TextFormField(
+                                    obscureText: true,
+                                    enabled: false,
+                                    decoration: InputDecoration(
+                                      hintText: "PDF Chatbot",
+                                      hintStyle: const TextStyle(
+                                          color: Colors.white70),
+                                      prefixIcon: const Icon(
+                                          Icons.picture_as_pdf_rounded,
+                                          color: Colors.white),
+                                      suffixIcon: const Icon(
+                                          Icons.arrow_forward_ios_rounded,
+                                          color: Colors.white),
+                                      filled: true,
+                                      fillColor: Colors.white.withOpacity(0.3),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                    ),
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                                const SizedBox(height: 20),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const MapQuestionsPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: TextFormField(
+                                    obscureText: true,
+                                    enabled: false,
+                                    decoration: InputDecoration(
+                                      hintText: "Map Bot",
+                                      hintStyle: const TextStyle(
+                                          color: Colors.white70),
+                                      prefixIcon: const Icon(Icons.map_rounded,
+                                          color: Colors.white),
+                                      suffixIcon: const Icon(
+                                          Icons.arrow_forward_ios_rounded,
+                                          color: Colors.white),
+                                      filled: true,
+                                      fillColor: Colors.white.withOpacity(0.3),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                    ),
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                                const SizedBox(height: 20),
+                                GestureDetector(
+                                  onTap: () async {
+                                    await _showUpdateDialog(context);
+                                  },
+                                  child: TextFormField(
+                                    obscureText: true,
+                                    enabled: false,
+                                    decoration: InputDecoration(
+                                      hintText: "Update IP",
+                                      hintStyle: const TextStyle(
+                                          color: Colors.white70),
+                                      prefixIcon: const Icon(
+                                          Icons.update_rounded,
+                                          color: Colors.white),
+                                      suffixIcon: const Icon(
+                                          Icons.arrow_forward_ios_rounded,
+                                          color: Colors.white),
+                                      filled: true,
+                                      fillColor: Colors.white.withOpacity(0.3),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                    ),
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
                                 ),
                                 const SizedBox(height: 30),
                               ],
@@ -171,6 +280,53 @@ class _ChoosePageState extends State<ChoosePage> {
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> _showUpdateDialog(BuildContext context) async {
+    final TextEditingController controller = TextEditingController();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.grey.shade700,
+          title: const Text(
+            'Enter New IP',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+          content: TextField(
+            controller: controller,
+            keyboardType: TextInputType.number,
+            cursorColor: Colors.white,
+            style: const TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white),
+            decoration: const InputDecoration(
+              hintText: "192.168.1.1",
+              hintStyle: TextStyle(color: Colors.grey),
+              focusColor: Colors.white,
+              fillColor: Colors.white,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text(
+                'OK',
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+              ),
+              onPressed: () async {
+                String newIP = controller.text;
+                await prefs.setString('currentIP', newIP);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
